@@ -2,10 +2,11 @@ PagerMon client for RTL-SDR
 
 Docker Build
 
-docker build -t pagermon-client ~/pagermon-client
+```docker build -t pagermon-client ~/pagermon-client```
 
 Docker Compose
 
+```
 version: '3.3'
 services:
     pagermon:
@@ -31,4 +32,5 @@ services:
         devices:
             - /dev/bus/usb
         network_mode: host
+```
 
