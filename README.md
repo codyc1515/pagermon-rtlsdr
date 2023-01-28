@@ -11,6 +11,7 @@ services:
     pagermon:
         container_name: pagermon
         image: 'pagermon/pagermon:latest-armhf'
+        # For PC: remove :latest-armhf
         restart: unless-stopped
         environment:
             - TZ=Pacific/Auckland
