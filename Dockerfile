@@ -48,4 +48,10 @@ RUN npm install
 
 COPY ./run.sh /
 RUN chmod 777 /run.sh
+
+COPY ./healthcheck.js /pagermon/client/healthcheck.js
+RUN chmod 777 /pagermon/client/healthcheck.js
+
 CMD ["/run.sh"]
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD node healthcheck.js || exit 1
