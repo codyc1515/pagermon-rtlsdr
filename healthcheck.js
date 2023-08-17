@@ -10,17 +10,26 @@ http.get(apiUrl, (res) => {
   res.on('end', () => {
     try {
       const response = JSON.parse(rawData);
-      const timestamp = response.messages[0].timestamp;
-      const currentTime = Math.floor(Date.now() / 1000);
-      if (currentTime - timestamp <= 90) {
-		console.log('Timestamp is within the past 90 seconds');
-        process.exit(0);
+      const messages = response.messages;
+      
+      if (messages && messages.length > 0) {
+        const timestamp = messages[0].timestamp;
+        const currentTime = Math.floor(Date.now() / 1000);
+        
+        if (timestamp !== undefined && currentTime - timestamp <= 90) {
+          console.log('Receiver OK');
+          process.exit(0);
+        } else {
+          console.log('No heartbeat received in 90 seconds', 'RTL-SDR may not be responding');
+          process.exit(1);
+        }
       } else {
-        console.log('Timestamp is NOT within the past 90 seconds (either SDR is not responding or network is down)');
-	    process.exit(1);
+        console.log('No messages found', 'PagerMon or network may not be responding');
+        process.exit(1);
       }
     } catch (e) {
-      console.error(e.message);
+      console.error('General error', e.message);
+	  process.exit(1);
     }
   });
 }).on('error', (e) => {
