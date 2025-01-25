@@ -3,7 +3,7 @@ FROM debian:bullseye-20230109-slim
 MAINTAINER codyc1515
 LABEL Description="Pagermon RTL-SDR support"
 LABEL Vendor="codyc1515"
-LABEL Version="1.0.0"
+LABEL Version="1.0.1"
 
 RUN apt-get update \
 && apt-get install -y --no-install-recommends qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libpulse-dev libx11-dev nodejs npm git libusb-1.0-0-dev pkg-config ca-certificates git-core cmake build-essential \
